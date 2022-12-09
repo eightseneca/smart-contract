@@ -34,4 +34,10 @@ context(`DocumentTrackerContract`, async () => {
         expect(trackerContent.hashContent).to.be.equal(hashFileA);
         expect(trackerContent.orgOwner).to.be.equal(account1.address);
     })
+
+    it(`Revert when mint an exist file`, async () => {
+        const hashFileA = getHashContentOfFile('fileA.txt');
+        await documentTracker.connect(account1).mint(hashFileA);
+        await expect(documentTracker.connect(admin).mint(hashFileA)).to.be.revertedWith("Content already uploaded");
+    })
 })
