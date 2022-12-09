@@ -6,15 +6,12 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721Enumer
 import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 
 contract DocumentTracker is AccessControlUpgradeable, ERC721Upgradeable, ERC721EnumerableUpgradeable {
-    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
-
     function initialize() public initializer {
         __ERC721_init("DocumentTracker", "DOT");
         __ERC721Enumerable_init();
         __AccessControl_init();
 
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _setupRole(MINTER_ROLE, msg.sender);
     }
 
     function supportsInterface(bytes4 interfaceId)
