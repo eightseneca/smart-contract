@@ -33,6 +33,8 @@ context(`DocumentTrackerContract`, async () => {
         const trackerContent = await documentTracker.trackers(0);
         expect(trackerContent.hashContent).to.be.equal(hashFileA);
         expect(trackerContent.orgOwner).to.be.equal(account1.address);
+
+        expect(trackerContent.createdTime).to.be.not.equal(0);
     })
 
     it(`Revert when mint an exist file`, async () => {
