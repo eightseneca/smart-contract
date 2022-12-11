@@ -9,6 +9,7 @@ contract DocumentTrackerContract is AccessControlUpgradeable, ERC721Upgradeable,
     struct DocumentTracker {
         bytes32 hashContent;
         address orgOwner;
+        uint256 createdTime;
     }
 
     struct HashContentIndex {
@@ -31,7 +32,7 @@ contract DocumentTrackerContract is AccessControlUpgradeable, ERC721Upgradeable,
     function mint(bytes32 hashContent) public {
         HashContentIndex memory index = contentIndex[hashContent];
         require(!index.isExist, "Content already uploaded");
-        trackers.push(DocumentTracker(hashContent, msg.sender));
+        trackers.push(DocumentTracker(hashContent, msg.sender, block.timestamp));
         contentIndex[hashContent] = HashContentIndex(true, trackerCount);
         _mint(msg.sender, trackerCount);
         ++trackerCount;
